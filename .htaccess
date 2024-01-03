@@ -1,0 +1,19 @@
+# RewriteEngine On
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+
+# RewriteRule ^(.*)$ index.php?page=$1
+
+
+
+
+# Cet exemple suppose que l'URL suit le format /articles/{id}. Vous pouvez ajuster la logique en fonction de votre structure d'URL spécifique.
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+</IfModule>
