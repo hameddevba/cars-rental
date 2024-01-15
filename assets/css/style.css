@@ -11,6 +11,7 @@ body {
     font-size: 16px;
     line-height: 120%;
     font-family: Open Sans, Helvetica, sans-serif;
+    position: relative;
 }
 
 /* Category Ads */

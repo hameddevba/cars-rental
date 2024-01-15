@@ -1,7 +1,7 @@
 <?php include "cars_header.php"; ?>
 <!-- Cut--------------------------------------------------------------------------------------------- -->
 
-<section class="py-5 text-center container">
+<section class="py-5 mt-5  text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light">Album example</h1>
@@ -18,7 +18,7 @@
 <div class="album py-5 bg-light">
   <div class="container">
     <br>
-    <h4>Bootstrap 4 and CCS3 Product Cards with Transition - Techhowdy(demonguru18) - Lyoid Lopes</h2>
+    <h4 class="text-center fs-1">Lister des voiture pour la location</h2>
       <br>
       <div class="row gy-5" id="ads">
         <!-- Category Card -->

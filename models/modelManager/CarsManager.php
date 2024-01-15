@@ -1,6 +1,6 @@
 <?php
 
-require "config/DBConnection.php";
+require_once "config/DBConnection.php";
 // require "../Cars_model.php";
 
 class CarsManager extends DBConnection{

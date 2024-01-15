@@ -1,8 +1,8 @@
 <?php
 
 // require  dirname(__FILE__)."/libs/view.php";
-include  "models/Cars_model.php";
-include "models/modelManager/CarsManager.php";
+include_once  "models/Cars_model.php";
+include_once "models/modelManager/CarsManager.php";
 
 
 class CarsController{
@@ -53,11 +53,13 @@ class CarsController{
     }
 
 
-    public function read(){
+    public function readAll(){
         $carsData = CarsManager::getAll();
 
         $cars = [];
+
         foreach ($carsData as $carData) {
+
             $car = new Cars(
                     $carData['brand'],
                     $carData['model'],  // Assuming modele is the same as model
@@ -72,7 +74,20 @@ class CarsController{
                 );
             $cars[] = $car;
         }
+
+       return $cars;
+    }
+
+    public function readAllAdmin(){
+        $cars = $this->readAll();
         return require "views/admin/cars_list.view.php";
     }
+
+    public function readAllCustomer(){
+        $cars = $this->readAll();
+        return require "views/cars/cars_lists.php";
+    }
+
+
 
 }
