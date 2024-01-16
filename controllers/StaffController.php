@@ -1,5 +1,7 @@
 <?php
 include_once "models/modelManager/StaffManager.php";
+include_once "models/Staff_model.php";
+
 
 class StaffController
 {
@@ -9,44 +11,45 @@ class StaffController
         
     }
 
-    public function createStaff()
-    {
-        if (isset($_POST)) {
-        
-        }
-
-        // Assurez-vous que les données nécessaires sont présentes dans $_POST
-        if (
-            isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['tel'], $_POST['profile']) &&
-            !empty($_POST['nom']) &&
-            !empty($_POST['prenom']) &&
-            !empty($_POST['email']) &&
-            !empty($_POST['tel']) &&
-            !empty($_POST['profile'])
-        ) {
-            // Récupérez les données depuis $_POST
-            $nom = $_POST['nom'];
-            $prenom = $_POST['prenom'];
-            $email = $_POST['email'];
-            $tel = $_POST['tel'];
-            $profile = $_POST['profile'];
-
-            // Appeler la méthode create de StaffManager pour ajouter le membre du personnel à la base de données
-            $staffId = StaffManager::createStaff($nom, $prenom, $email, $tel, $profile);
-
-            var_dump($staffId);
-
-            // Vous pouvez rediriger l'utilisateur vers une autre page ou renvoyer une réponse JSON, etc.
-            // Exemple: header('Location: /staff/'.$staffId);
-        } else {
-            // Gérer l'absence ou le caractère vide des données attendues dans $_POST
-            // Vous pouvez rediriger l'utilisateur vers une page d'erreur ou renvoyer une réponse JSON, etc.
-            // Exemple: echo json_encode(['error' => 'Données manquantes ou vides']);
-        }
-        return require "views/admin/staff_list.view.php";
-
-        // return require "views/staff/reservation.php";
+   public function createStaff()
+{
+    if (isset($_POST)) {
+        var_dump($_POST);
     }
+
+    // Assurez-vous que les données nécessaires sont présentes dans $_POST
+    if (
+        isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['tel'], $_POST['profile']) &&
+        !empty($_POST['nom']) &&
+        !empty($_POST['prenom']) &&
+        !empty($_POST['email']) &&
+        !empty($_POST['tel']) &&
+        !empty($_POST['profile'])
+    ) {
+        // Créez un objet Staff avec les données POST
+      
+
+        // Appeler la méthode create de StaffManager pour ajouter le membre du personnel à la base de données
+        $staffId = StaffManager::createStaff(new Staff(
+            $_POST['nom'],
+            $_POST['prenom'],
+            $_POST['email'],
+            $_POST['tel'],
+            $_POST['profile']
+        ));
+
+        // Redirige l'utilisateur vers la page de liste des membres du personnel
+        // header('Location: /staff');
+        
+    }
+
+    // var_dump($staffs);
+    return require "views/admin/staff_list.view.php";
+
+        ob_start();
+}
+
+
 
     public function getAllStaff()
     {
@@ -55,6 +58,8 @@ class StaffController
 
         return require "views/admin/staff_list.view.php";
     }
+
+
 
     public function viewStaff($staffId)
     {

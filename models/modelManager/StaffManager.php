@@ -18,22 +18,17 @@ class StaffManager extends DBConnection
     // Méthode pour ajouter un nouveau membre du personnel
     public static function createStaff(Staff $staff)
     {
-        $sql = "INSERT INTO staff (nom, prenom, email, tel, profile)
-            VALUES (:nom, :prenom, :email, :tel, :profile)";
-
-        $stmt = self::getDBconnect()->prepare($sql);
-
-        // Utiliser les propriétés de l'objet Staff pour la requête
-        $stmt->bindParam(":nom", $staff->getNom());
-        $stmt->bindParam(":prenom", $staff->getPrenom());
-        $stmt->bindParam(":email", $staff->getEmail());
-        $stmt->bindParam(":tel", $staff->getTel());
-        $stmt->bindParam(":profile", $staff->getProfile());
-
-        $stmt->execute();
-
-        return $stmt->rowCount();
+        $stmt = self::getDBconnect()->prepare("INSERT INTO staff (nom, prenom, email, tel, profile) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $staff->getNom(),
+            $staff->getPrenom(),
+            $staff->getEmail(),
+            $staff->getTel(),
+            $staff->getProfile()
+        ]);
+        return self::getDBconnect()->lastInsertId();
     }
+
 
 
     // Méthode pour modifier un membre du personnel

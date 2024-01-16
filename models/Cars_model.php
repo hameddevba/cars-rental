@@ -29,6 +29,14 @@ class Cars
         $this->description = $description;
     }
 
+
+    //
+    // public function __construct($arr)
+    // {
+    //     $this->brand = trim($arr["brand"]);
+    //     $this->immatriculation = trim($arr['immatri'])
+    // }
+
   
 
 

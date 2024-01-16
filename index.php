@@ -43,9 +43,15 @@ switch($segments[0]){
 
     case "admin" :
         if (empty($segments[1])) require "views/admin/dashboard.php";
+
         elseif($segments[1]=='add_cars') $carController->create();
+
         elseif ($segments[1]=="cars") $carController->readAllAdmin();
+
         elseif($segments[1]=="customers") $customerController->getAllCustomers();
+        
+        elseif($segments[1]=="staff") $staffcontroller->createStaff();
+        
         break;
         
     default:
