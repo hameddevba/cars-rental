@@ -10,7 +10,7 @@ include "cars_header.php";
 
     <div class="album py-5 bg-dark rounded-3 container">
 
-      <div class="card mb-3" ">
+      <div class="card mb-3 w-75 mx-auto h75">
         <div class="row g-0">
           <div class="col-md-5">
            <img class="img-fluid"
@@ -18,10 +18,10 @@ include "cars_header.php";
                     alt="Alternate Text" />
           </div>
           <div class="col-md-6">
-            <div class="card-body">
-              <h5 class="card-title text-center fs-3 fw-bold text-black">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div class="card-body h-100 d-flex flex-column justify-content-between text-center">
+              <h5 class="card-title text-center fs-3 fw-bold text-black">ToYota Yaris</h5>
+              <p class="card-text">Plongez dans le luxe et la performance avec notre dernier modèle de voiture. Dotée d'un design élégant et de technologies de pointe, cette voiture offre une conduite fluide et confortable. Que vous recherchiez une expérience de conduite dynamique en ville ou sur les routes panoramiques, cette voiture est prête à vous emmener là où vous voulez aller, avec style et assurance.</p>
+              <!-- <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
             </div>
           </div>
         </div>

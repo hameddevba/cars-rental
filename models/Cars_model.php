@@ -30,19 +30,15 @@ class Cars
     }
 
 
-    //
-    // public function __construct($arr)
-    // {
-    //     $this->brand = trim($arr["brand"]);
-    //     $this->immatriculation = trim($arr['immatri'])
-    // }
-
-  
 
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId($id):void{
+        $this->id = $id;
     }
 
     public function getImmatriculation(): string

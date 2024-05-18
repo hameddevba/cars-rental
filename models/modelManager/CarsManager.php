@@ -32,9 +32,9 @@ class CarsManager extends DBConnection{
 
     
     // Read a car by ID
-    public function read($id)
+    public static function getById($id)
     {
-        $stmt = $this->getDBconnect()->prepare("SELECT * FROM cars WHERE id = ?");
+        $stmt = self::getDBconnect()->prepare("SELECT * FROM cars WHERE id = ?");
         $stmt->execute([$id]);
         $row = $stmt->fetch();
         return $row;
@@ -42,9 +42,9 @@ class CarsManager extends DBConnection{
 
 
     // Update an existing car
-    public function update(Cars $car)
+    public static function update(Cars $car)
     {
-        $stmt = $this->getDBconnect()->prepare("UPDATE cars SET immatriculation = ?, brand = ?, modele = ?, annee = ?, couleur = ?, engin = ?, transmission = ?, price = ?, category = ?, description = ?, image = ? WHERE id = ?");
+        $stmt = self::getDBconnect()->prepare("UPDATE cars SET immatriculation = ?, brand = ?, model = ?, annee = ?, couleur = ?, engin = ?, transmission = ?, price = ?, category = ?, description = ? WHERE id = ?");
         $stmt->execute([
             $car->getImmatriculation(),
             $car->getBrand(),
@@ -63,9 +63,9 @@ class CarsManager extends DBConnection{
     }
 
     /* Delete a car */
-    public function delete($id)
+    public static function delete($id)
     {
-        $stmt = $this->getDBconnect()->prepare("DELETE FROM cars WHERE id = ?");
+        $stmt = self::getDBconnect()->prepare("DELETE FROM cars WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->rowCount() > 0; // Return true if deletion was successful
     }

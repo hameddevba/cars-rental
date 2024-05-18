@@ -32,9 +32,10 @@ class CarsController{
                 echo '<script>alert("Veuillez remplir tous les champs obligatoires.");</script>';
             }else{
                 $car = new Cars($brand, $modele, $an, $immatri, $couleur, $transmission, $category, $engin, $price, $description);
+
                 CarsManager::create($car);
                 //redirect 
-                header('Location:cars_list');
+                header('Location:cars');
             }
 
             // Vérifier que la date d'année est valide
@@ -43,13 +44,13 @@ class CarsController{
             }
 
             // Vérifier que le prix est un nombre
-            if (!is_numeric($price)) {
+            if (!is_numeric($price) and !empty($price)) {
                echo "<script>alert('prix doit être un nombre.')</script>";
             }
         }
 
         
-        return require "views/admin/cars_regis.view.php";
+        // return require "views/admin/cars_regis.view.php";
     }
 
 
@@ -72,6 +73,7 @@ class CarsController{
                     $carData['price'],
                     $carData['description']
                 );
+                $car->setId($carData['id']);
             $cars[] = $car;
         }
 
@@ -79,7 +81,9 @@ class CarsController{
     }
 
     public function readAllAdmin(){
-        $cars = $this->readAll();
+        // echo session_id();
+        $this->create();
+        // $cars = $this->readAll();
         return require "views/admin/cars_list.view.php";
     }
 
@@ -89,5 +93,90 @@ class CarsController{
     }
 
 
+    public function getById($id){
+        $car = CarsManager::getById($id);
+
+
+        // $carObject = new Cars(
+        //     $car["brand"],
+        //     $car["model"],
+        //     $car["annee"],
+        //     $car["immatriculation"],
+        //     $car["couleur"],
+        //     $car["transmission"],
+        //     $car["category"],
+        //     $car["engin"],
+        //     $car["price"],
+        //     $car["description"]
+        // );
+
+        $theCars = array(
+            "brand" => $car["brand"],
+            "model" => $car["model"],
+            "annee" => $car["annee"],
+            "immatriculation" => $car["immatriculation"],
+            "couleur" => $car["couleur"],
+            "transmission" => $car["transmission"],
+            "category" => $car["category"],
+            "engin" => $car["engin"],
+            "price" => $car["price"],
+            "description" => $car["description"]
+        );
+
+        // $carArray = get_object_vars($carObject);
+
+        // echo json_encode($carArray);
+
+        echo json_encode($theCars, JSON_PRETTY_PRINT);
+        
+    }
+
+
+    public function update(){
+        // Démarrer la session (si nécessaire)
+
+        // var_dump($_POST);
+        // Vérifiez si le formulaire a été soumis
+        if (isset($_POST['submit'])) {
+
+            // Récupérer les données du formulaire
+            $brand = $_POST['brand'];
+            $modele = $_POST['model'];
+            $an = $_POST['year'];
+            $immatri = $_POST['immatriculation'];
+            $couleur = $_POST['couleur'];
+            $transmission = $_POST['transmission'];
+            $category = $_POST['category'];
+            $engin = $_POST['engin'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+
+            // Créer un instance de l'objet Car
+            $car = new Cars($brand, $modele, $an, $immatri, $couleur, $transmission, $category,
+                $engin,
+                $price,
+                $description
+            );
+
+            $car->setId(intval($_POST['id']));
+
+            var_dump($car);
+
+            if(CarsManager::update($car)){
+                echo "Mise a jour reussi";
+            }
+            // Traiter l'objet $car comme vous le souhaitez (par exemple, l'enregistrer dans une base de données)
+            header("Location: cars"); // Changer "index.php" par le nom de votre fichier de formulaire
+          
+        } else {
+            // Redirection vers le formulaire si ce n'est pas un POST
+            header("Location: index.php"); // Changer "index.php" par le nom de votre fichier de formulaire
+            exit();
+        }
+    }
+
+    public function delete($theId){
+        CarsManager::delete($theId);
+    }
 
 }

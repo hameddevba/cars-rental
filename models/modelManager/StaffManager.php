@@ -18,16 +18,27 @@ class StaffManager extends DBConnection
     // Méthode pour ajouter un nouveau membre du personnel
     public static function createStaff(Staff $staff)
     {
-        $stmt = self::getDBconnect()->prepare("INSERT INTO staff (nom, prenom, email, tel, profile) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([
-            $staff->getNom(),
-            $staff->getPrenom(),
-            $staff->getEmail(),
-            $staff->getTel(),
-            $staff->getProfile()
-        ]);
-        return self::getDBconnect()->lastInsertId();
-    }
+
+        try{
+            $stmt = self::getDBconnect()->prepare("INSERT INTO staff (nom, prenom, email, tel, profile) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $staff->getNom(),
+                $staff->getPrenom(),
+                $staff->getEmail(),
+                $staff->getTel(),
+                $staff->getProfile()
+            ]);
+            return self::getDBconnect()->lastInsertId();
+
+        }catch(Exception $e){
+            echo '<script>';
+            // echo 'alert("' . htmlspecialchars($e->getMessage(), ENT_QUOTES) . '");';
+            echo 'alert("Attention dubliquation de donnees ")';
+            echo '</script>';
+        }
+
+        }
+       
 
 
 
@@ -86,14 +97,21 @@ class StaffManager extends DBConnection
     // Méthode pour rechercher un membre du personnel par ID
     public static function findStaffById($id)
     {
-        $sql = "SELECT * FROM staff
-                 WHERE id = :id";
+        $sql = "SELECT * FROM staff WHERE id = :id";
         $stmt = self::getDBconnect()->prepare($sql);
 
         $stmt->bindParam(":id", $id);
 
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC); // Obtenir le résultat sous forme de tableau associatif
+
+        if ($result) {
+            // Convertir le tableau associatif en objet JSON
+            return json_encode($result);
+        } else {
+            return null; // Retourner null si aucun résultat n'est trouvé
+        }
     }
+
 }

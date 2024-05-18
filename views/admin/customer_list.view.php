@@ -4,7 +4,9 @@
 ?>
 
 <div class="container mt-5">
+
     <h2>Liste des Clients</h2>
+
 
     <table class="table mt-5">
         <thead>
